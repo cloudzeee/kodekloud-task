@@ -1,0 +1,34 @@
+Question
+=========
+There is some data on Nautilus App Server 3 in Stratos DC. Data needs to be altered in several of the files. On Nautilus App Server 3, alter the /home/BSD.txt file as per details given below:
+a. Delete all lines containing word code and save results in /home/BSD_DELETE.txt file. (Please be aware of case sensitivity)
+
+b. Replace all occurrence of word or to them and save results in /home/BSD_REPLACE.txt file.
+
+Note: Let's say you are asked to replace word to with from. In that case, make sure not to alter any words containing this string; for example upto, contributor etc.
+
+
+Solution
+==========
+First check location and make sure you have text located in BSD.txt
+- ssh banner@stapp03  //ssh to server 3
+- cd .. //come back to home directory
+- cat BSD.txt  // to view the content of BSD.txt file
+
+
+*the syntax to find and delete a word , then sve to a different is  sed -e 's/\<regex-for-word\>//g' input > output . sed is a stream editor. It can perform basic text manipulation on files and input streams such as pipelines. With sed, you can search, find and replace, insert, and delete words and lines. 
+
+CD into home directory and run the following
+
+sed -e '/code/d' BSD.txt > BSD_DELETE.txt    //to delete the word code and save file in DSD_DELETE.txt
+
+You can check and confirm word is delete
+cat BSD.txt | grep code  //if now entry is returned then code worked
+
+sed 's/or/them/g' BSD.txt > BSD_REPLACE.txt   //Replaces the word or with them
+
+
+
+****Helping Links****
+https://www.cyberciti.biz/faq/unix-linux-replace-string-words-in-many-files/
+https://linuxize.com/post/how-to-use-sed-to-find-and-replace-string-in-files/
